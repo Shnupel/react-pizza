@@ -4,10 +4,9 @@ import HeaderCompnent from "./components/headerComponent";
 import BasketPage from "./pages/cart";
 import HomePage from "./pages/home";
 import NotFoundPage from "./pages/notFound";
+import FullPizza from "./pages/fullPizza";
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState('');
-
   return (
     <div className="wrapper">
         <HeaderCompnent />
@@ -15,6 +14,8 @@ function App() {
           <div className="container">
             <Routes>
               <Route index element={ <HomePage /> } />
+              <Route path="/:categoryId/:sortProperty" element={ <HomePage /> } />
+              <Route path="/pizza/:pizzaid" element={ <FullPizza /> } />
               <Route path="/cart" element={ <BasketPage /> } />
               <Route path="*" element={ <NotFoundPage /> } />
             </Routes>

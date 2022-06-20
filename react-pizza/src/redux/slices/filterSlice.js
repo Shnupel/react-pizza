@@ -14,17 +14,21 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setCategoryId: (state, action) => {
-      state.categoryId = action.payload
+      state.categoryId = action.payload;
     },
     setSort: (state, action) => {
-      state.sort = action.payload
+      state.sort = action.payload;
     },
     setSearchFilter: (state, action) => {
-      state.searchFilter = action.payload
+      state.searchFilter = action.payload;
+    },
+    setFilters: (state, action) => {
+      state.sort = action.payload.sort;
+      state.categoryId = Number(action.payload.categoryId);
     }
   }
 });
 
-export const { setCategoryId, setSort, setSearchFilter } = filterSlice.actions;
+export const { setCategoryId, setSort, setSearchFilter, setFilters } = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -5,11 +5,11 @@ import { SearchComponent } from "./search";
 import { setCategoryId, setSort } from "../redux/slices/filterSlice";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 
-const HeaderCompnent = (props) => {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+const HeaderCompnent: React.FC = () => {
+  const { totalPrice } = useSelector((state: { cart: { totalPrice: number} }) => state.cart);
 
   const dispatch = useDispatch();
-  const pizzasCounter = useSelector(state => state.cart.counterPizzas);
+  const pizzasCounter = useSelector((state: { cart: { counterPizzas: number } }) => state.cart.counterPizzas);
 
   const clickLogo = () => {
     dispatch(setCategoryId(0));

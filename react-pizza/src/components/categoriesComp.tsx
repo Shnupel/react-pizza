@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
+import { IFilter } from "../../interface/interfaces";
+interface IProps {
+  value: number
+}
 
-const CategoriesComponent = ({ value }) => {
+const CategoriesComponent: React.FC<IProps> = ({ value }) => {
   const dispatch = useDispatch();
   const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-  const sortParam = useSelector((state) => state.filter.sort.sortProperty);
+  const sortParam = useSelector((state: IFilter) => state.filter.sort.sortProperty);
 
   return (
     <div className="categories">

@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSort } from "../redux/slices/filterSlice";
+import { IFilter, ISortParams } from "../../interface/interfaces";
 
-export const list = [
+export const list: ISortParams[] = [
   { name: "популярности", sortProperty: "rating" },
   { name: "цене (по убыванию)", sortProperty: "price" },
   { name: "цене (по возрастанию)", sortProperty: "-price" },
@@ -11,20 +12,21 @@ export const list = [
   { name: "алфавиту (по возрастанию)", sortProperty: "-name" },
 ];
 
-const SortComponent = ({ value }) => {
+const SortComponent: React.FC = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.filter.categoryId);
+  const category = useSelector((state: IFilter) => state.filter.categoryId);
+  const value = useSelector((state: IFilter) => state.filter.sort)
 
   const [visibileted, setVisibilited] = useState(false);
-  const chooseSort = (listElement) => {
+  const chooseSort = (listElement: ISortParams) => {
     dispatch(setSort(listElement));
     setVisibilited(false);
   }
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const closePopUp = (event) => {
+    const closePopUp = (event: any) => {
       if(!event.path.includes(sortRef.current)){
         setVisibilited(false);
       }

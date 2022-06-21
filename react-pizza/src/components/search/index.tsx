@@ -6,23 +6,23 @@ import { setSearchFilter } from "../../redux/slices/filterSlice";
 import { useDispatch } from "react-redux";
 
 
-export const SearchComponent = (props) => {
+export const SearchComponent: React.FC = () => {
   const dispatch = useDispatch();
   
-  const [inputValue, setInputValue] = useState(""); 
-  const searchInput = useRef();
+  const [inputValue, setInputValue] = useState<string>(""); 
+  const searchInput = useRef<HTMLInputElement>(null);
 
   const svgClear = () => {
     setInputValue("");
     dispatch(setSearchFilter(""));
-    searchInput.current.focus();
+    searchInput.current?.focus();
   }
 
   const updateSearchValue = useCallback(debounce((value) => {
     dispatch(setSearchFilter(value));
   }, 750), []);
 
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setInputValue(event.target.value)
     updateSearchValue(event.target.value);
   }

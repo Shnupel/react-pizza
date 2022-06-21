@@ -7,8 +7,6 @@ export const fetchPizzas = createAsyncThunk('pizza/fetchedPizzas', async (params
   return result.data;
 })
 
-console.log()
-
 const initialState = {
   status: "loading", //loading, success, error
   items: []

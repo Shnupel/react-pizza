@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { addProduct } from "../../redux/slices/basketSlice";
-import { IPizza } from "../../../interface/interfaces";
+import { IBasketCarts, IPizza } from "../../../interface/interfaces";
 
 export const pizzaIndex: string[] = ["тонкая", "традиционная"];
 
@@ -15,7 +15,7 @@ const PizzaBlock: React.FC<{ pizzaData: IPizza }> = ({ pizzaData }) => {
 
   const onClickAdd = () => {
     setPizzaCounter(prevCounter => prevCounter += 1);
-    const choicePizza = {
+    const choicePizza: IBasketCarts = {
       id: id,
       size: sizes[pizzaSize],
       type: pizzaType,
@@ -23,7 +23,6 @@ const PizzaBlock: React.FC<{ pizzaData: IPizza }> = ({ pizzaData }) => {
       cost: price,
       count: 1,
       name: name,
-      date: Date.now()
     };
     dispatch(addProduct(choicePizza));
   }

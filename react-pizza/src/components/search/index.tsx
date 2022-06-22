@@ -22,7 +22,7 @@ export const SearchComponent: React.FC = () => {
     dispatch(setSearchFilter(value));
   }, 750), []);
 
-  const onChangeInput = (event: any) => {
+  const onChangeInput: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setInputValue(event.target.value)
     updateSearchValue(event.target.value);
   }

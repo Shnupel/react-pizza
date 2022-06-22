@@ -1,48 +1,25 @@
-export interface IPizzaData {
-  imageUrl: string,
-  name: string,
-  price: number
+export interface ICartState {
+  totalPrice: number,
+  counterPizzas: number,
+  items: IBasketCarts[]
 }
 
-export type ICartState = {
-  cart: {
-    totalPrice: number,
-    counterPizzas: number,
-    items: IBasketCarts[]
-  }
-}
-
-export interface IBasketCarts{
-  id: number,
+export type IBasketCarts = {
+  id: string,
   name: string,
   type: number,
-  size: number,
+  size: string,
   img: string,
   cost: number,
   count: number
 }
 
-export interface IFilter{
-  filter:{ 
-    categoryId: number,
-    searchFilter: string,
-    sort: ISortParams
-  }
-}
-
-export interface ISortParams{
+export type ISortParams = {
   name: string,
-  sortProperty: string
+  sortProperty: "rating" | "price" | "-price" | "name" | "-name"
 }
 
-export interface IPizzas{
-  pizza:{
-    status: string,
-    items: IPizza[]
-  }
-}
-
-export interface IPizza{
+export type IPizza = {
   id: string,
   name: string,
   types: number[],

@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IBasketCarts, ICartState } from "../../../interface/interfaces";
 
-const initialState = {
+const initialState: ICartState = {
   totalPrice: 0,
   counterPizzas: 0,
   items: []
@@ -10,7 +11,7 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addProduct: (state, action) => {
+    addProduct: (state, action: PayloadAction<IBasketCarts>) => {
       const comparison = state.items.find(item => (item.id === action.payload.id) && (item.size === action.payload.size) && (item.type === action.payload.type));
       if(comparison){
         comparison.count += 1;
@@ -20,7 +21,7 @@ const cartSlice = createSlice({
       state.totalPrice += action.payload.cost;
       state.counterPizzas += 1;
     },
-    removeProduct: (state, action) => {
+    removeProduct: (state, action: PayloadAction<IBasketCarts>) => {
       state.items = state.items.filter(item => item.id === action.payload.id && item.size === action.payload.size && item.type === action.payload.type);
     },
     clearItems: (state) => {
@@ -28,22 +29,22 @@ const cartSlice = createSlice({
       state.totalPrice = 0;
       state.counterPizzas = 0;
     },
-    decrementCounter: (state, action) => {
+    decrementCounter: (state, action: PayloadAction<IBasketCarts>) => {
       const comparison = state.items.find(item => (item.id === action.payload.id) && (item.size === action.payload.size) && (item.type === action.payload.type));
-      comparison.count -= 1;
-      if(comparison.count === 0){
+      comparison!.count -= 1;
+      if(comparison!.count === 0){
         state.items = [...state.items.filter(item => (item.id !== action.payload.id) || (item.size !== action.payload.size) || (item.type !== action.payload.type))]
       }
       state.totalPrice -= action.payload.cost;
       state.counterPizzas -= 1;
     },
-    incrementCounter: (state, action) => {
+    incrementCounter: (state, action: PayloadAction<IBasketCarts>) => {
       const comparison = state.items.find(item => (item.id === action.payload.id) && (item.size === action.payload.size) && (item.type === action.payload.type));
-      comparison.count += 1;
+      comparison!.count += 1;
       state.totalPrice += action.payload.cost;
       state.counterPizzas += 1;
     },
-    deletePizza: (state, action) => {
+    deletePizza: (state, action: PayloadAction<IBasketCarts>) => {
       state.items = [...state.items.filter(item => (item.id !== action.payload.id) || (item.size !== action.payload.size) || (item.type !== action.payload.type))]
       state.totalPrice -= action.payload.cost * action.payload.count;
       state.counterPizzas -= action.payload.count;

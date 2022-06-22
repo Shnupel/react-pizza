@@ -4,12 +4,13 @@ import logoSvg from "../assets/img/pizza-logo.svg";
 import { SearchComponent } from "./search";
 import { setCategoryId, setSort } from "../redux/slices/filterSlice";
 import { useSelector, useDispatch } from "react-redux/es/exports";
+import { stateType } from "../redux/store";
 
 const HeaderCompnent: React.FC = () => {
-  const { totalPrice } = useSelector((state: { cart: { totalPrice: number} }) => state.cart);
+  const { totalPrice } = useSelector((state: stateType) => state.cart);
 
   const dispatch = useDispatch();
-  const pizzasCounter = useSelector((state: { cart: { counterPizzas: number } }) => state.cart.counterPizzas);
+  const pizzasCounter = useSelector((state: stateType) => state.cart.counterPizzas);
 
   const clickLogo = () => {
     dispatch(setCategoryId(0));

@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, MouseEventHandler } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSort } from "../redux/slices/filterSlice";
-import { IFilter, ISortParams } from "../../interface/interfaces";
+import { ISortParams } from "../../interface/interfaces";
+import { stateType } from "../redux/store";
 
 export const list: ISortParams[] = [
   { name: "популярности", sortProperty: "rating" },
@@ -14,8 +15,8 @@ export const list: ISortParams[] = [
 
 const SortComponent: React.FC = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state: IFilter) => state.filter.categoryId);
-  const value = useSelector((state: IFilter) => state.filter.sort)
+  const category = useSelector((state: stateType) => state.filter.categoryId);
+  const value = useSelector((state: stateType) => state.filter.sort)
 
   const [visibileted, setVisibilited] = useState(false);
   const chooseSort = (listElement: ISortParams) => {
@@ -26,8 +27,9 @@ const SortComponent: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const closePopUp = (event: any) => {
-      if(!event.path.includes(sortRef.current)){
+    const closePopUp = (event: MouseEvent) => {
+      const _event = event as MouseEvent & { path: Node[] };
+      if(sortRef.current && !_event.path.includes(sortRef.current)){
         setVisibilited(false);
       }
     }

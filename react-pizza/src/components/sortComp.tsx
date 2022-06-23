@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, MouseEventHandler } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSort } from "../redux/slices/filterSlice";
@@ -64,4 +64,6 @@ const SortComponent: React.FC = () => {
   )
 }
 
-export default SortComponent;
+const MemorizedSortComponent = memo(SortComponent);
+
+export default MemorizedSortComponent;

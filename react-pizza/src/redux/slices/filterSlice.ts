@@ -4,12 +4,14 @@ import { ISortParams } from "../../../interface/interfaces";
 interface filterState {
   categoryId: number,
   searchFilter: string,
+  filterParams: string[],
   sort: ISortParams
 }
 
 const initialState: filterState = {
   categoryId: 0,
   searchFilter: "",
+  filterParams: ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"],
   sort: {
     name: "популярности",
     sortProperty: "rating"

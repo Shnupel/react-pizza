@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
 import { stateType } from "../redux/store";
-import { useWhyDidYouUpdate } from "ahooks";
 
 const CategoriesComponent: React.FC<{ value: number }> = ({ value }) => {
   const dispatch = useDispatch();

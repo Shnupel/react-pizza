@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import logoSvg from "../assets/img/pizza-logo.svg";
 import { SearchComponent } from "./search";
@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import { stateType } from "../redux/store";
 
 const HeaderCompnent: React.FC = () => {
-  const { totalPrice } = useSelector((state: stateType) => state.cart);
+  const { items, totalPrice } = useSelector((state: stateType) => state.cart);
   const location = useLocation();
 
   const dispatch = useDispatch();
@@ -21,7 +21,24 @@ const HeaderCompnent: React.FC = () => {
     }))
   }
 
-  React.useEffect(() => console.log(location))
+  // useEffect(() => {
+  //   const itemsJson = JSON.stringify(items);
+  //   if(items.length !== 0){
+  //     localStorage.setItem("items", itemsJson);
+  //   }
+  // }, [items]);
+
+  const isMounted = React.useRef(0);
+
+  React.useEffect(() => console.log("rerender"));
+
+  useEffect(() => {
+    const itemsJson = JSON.stringify(items);
+    if(isMounted.current > 1){
+      localStorage.setItem("items", itemsJson);
+    }
+    isMounted.current += 1;
+  }, [items]);
 
   return(
     <div className="header">

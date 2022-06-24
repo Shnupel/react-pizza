@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBasketCarts, ICartState } from "../../../interface/interfaces";
+import { getCartFromLS } from "../../utils/getCartFromLocalStrorage";
 
 const initialState: ICartState = {
   totalPrice: 0,
   counterPizzas: 0,
-  items: []
+  items: getCartFromLS()
 }
 
 const cartSlice = createSlice({

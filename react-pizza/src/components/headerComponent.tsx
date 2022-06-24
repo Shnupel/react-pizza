@@ -23,7 +23,6 @@ const HeaderCompnent: React.FC = () => {
   }
 
   const howMounted = React.useRef(0);
-  React.useEffect(() => console.log("rerender"));
 
   useEffect(() => {
     const itemsJson = JSON.stringify(items);

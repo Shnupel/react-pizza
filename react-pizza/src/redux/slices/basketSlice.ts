@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBasketCarts, ICartState } from "../../../interface/interfaces";
 
-import { getCartFromLS } from "../../utils/getCartFromLocalStrorage";
+import { getCartFromLS } from "../../utils/getParamsFromLocalStrorage";
 import { findPizzaFromRedux, filterDeletePizzaFromRedux, filterCounterZeroDownPizzaFromRedux } from "../../utils/getPizzaFromRedux";
 
 const initialState: ICartState = {

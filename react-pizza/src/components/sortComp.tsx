@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { setSort } from "../redux/slices/filterSlice";
 import { ISortParams } from "../../interface/interfaces";
+import { setSort } from "../redux/slices/filterSlice";
 import { stateType } from "../redux/store";
+import { getSortFromLS } from "../utils/getParamsFromLocalStrorage";
 
 export const list: ISortParams[] = [
   { name: "популярности", sortProperty: "rating" },
@@ -15,17 +15,17 @@ export const list: ISortParams[] = [
 
 const SortComponent: React.FC = () => {
   const dispatch = useDispatch();
-  const category = useSelector((state: stateType) => state.filter.categoryId);
-  const value = useSelector((state: stateType) => state.filter.sort)
-
+  const value = useSelector((state: stateType) => state.filter.sort);
   const [visibileted, setVisibilited] = useState(false);
-  const chooseSort = (listElement: ISortParams) => {
-    dispatch(setSort(listElement));
-    setVisibilited(false);
-  }
-
   const sortRef = useRef<HTMLDivElement>(null);
 
+  const chooseSort = (chosedCategory: ISortParams) => {
+    const sortJSON = JSON.stringify(chosedCategory);
+    localStorage.setItem("sort", sortJSON);
+    dispatch(setSort(chosedCategory));
+    setVisibilited(false);
+  }
+  
   useEffect(() => {
     const closePopUp = (event: MouseEvent) => {
       const _event = event as MouseEvent & { path: Node[] };
@@ -34,10 +34,19 @@ const SortComponent: React.FC = () => {
       }
     }
     document.body.addEventListener("click", closePopUp);
-
     return () => {
       document.body.removeEventListener("click", closePopUp);
     }
+  }, []);
+
+  useEffect(() => console.log(value));
+
+  const howMounted = useRef(0);
+  useEffect(() => {
+    if(value){
+      dispatch(setSort(getSortFromLS()));
+    }
+    howMounted.current += 1;
   }, []);
 
   return (
@@ -53,7 +62,7 @@ const SortComponent: React.FC = () => {
             <ul>
               {
                 list.map((listElem, i) => {
-                  return <Link to={ `/categoryId=${ category }/sortParams=${ listElem.sortProperty }` } key={ i }> <li className={ value.sortProperty === listElem.sortProperty ? "active" : "" } onClick={ () => chooseSort(listElem) }> { listElem.name } </li> </Link>
+                  return <li key={ i } className={ value.sortProperty === listElem.sortProperty ? "active" : "" } onClick={ () => chooseSort(listElem) }> { listElem.name } </li>
                 })
               }
             </ul>

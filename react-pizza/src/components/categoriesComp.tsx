@@ -1,14 +1,27 @@
-import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setCategoryId } from "../redux/slices/filterSlice";
 import { stateType } from "../redux/store";
+import { setCategoryId } from "../redux/slices/filterSlice";
+import { getCategoryFromLS } from "../utils/getParamsFromLocalStrorage";
 
 const CategoriesComponent: React.FC<{ value: number }> = ({ value }) => {
-  const dispatch = useDispatch();
-  const sortParam = useSelector((state: stateType) => state.filter.sort.sortProperty);
+  const dispatch = useDispatch(); 
   const categoryId = useSelector((state: stateType) => state.filter.categoryId);
-  const categories = useSelector((state: stateType) => state.filter.filterParams);
+  const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
+
+  const chooseCategory = (categoryIndex: number) => {
+    const categoryJSON = JSON.stringify(categoryIndex);
+    localStorage.setItem("category", categoryJSON);
+    dispatch(setCategoryId(categoryIndex));
+  }
+
+  const howMounted = React.useRef(0);
+  useEffect(() => {
+    if(howMounted.current > 1){
+      dispatch(setCategoryId(getCategoryFromLS()));
+    }
+    howMounted.current += 1;
+  }, [categoryId]);
 
   return (
     <div className="categories">
@@ -16,7 +29,7 @@ const CategoriesComponent: React.FC<{ value: number }> = ({ value }) => {
         {
           categories.map((category, i) => {
             return (
-              <Link to={ `/categoryId=${ i }/sortParams=${ sortParam }` } key={ i }> <li onClick={ () => dispatch(setCategoryId(i)) } className={ categoryId === i ? "active" : ""} > { category } </li> </Link>
+              <li key={ i } onClick={ () => chooseCategory(i) } className={ categoryId === i ? "active" : ""} > { category } </li>
             )
           })
         }

@@ -1,21 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ISortParams } from "../../../interface/interfaces";
+import { getCategoryFromLS, getSortFromLS } from "../../utils/getParamsFromLocalStrorage";
 
 interface filterState {
   categoryId: number,
   searchFilter: string,
-  filterParams: string[],
   sort: ISortParams
 }
 
 const initialState: filterState = {
-  categoryId: 0,
+  categoryId: getCategoryFromLS(),
   searchFilter: "",
-  filterParams: ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"],
-  sort: {
-    name: "популярности",
-    sortProperty: "rating"
-  }
+  sort: getSortFromLS()
 }
 
 const filterSlice = createSlice({

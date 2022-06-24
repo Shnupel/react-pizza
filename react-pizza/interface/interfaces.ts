@@ -1,6 +1,4 @@
 export interface ICartState {
-  totalPrice: number,
-  counterPizzas: number,
   items: IBasketCarts[]
 }
 

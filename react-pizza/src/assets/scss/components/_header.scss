@@ -7,7 +7,6 @@
   .container {
     display: flex;
     align-items: center;
-    // justify-content: space-between;
     @media (max-width: 505px) {
       flex-direction: column;
       .button--cart{

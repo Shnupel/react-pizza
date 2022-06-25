@@ -56,7 +56,7 @@ const PizzaBlock: React.FC<{ pizzaData: IPizza }> = ({ pizzaData }) => {
         <div className="pizza-block__selector">
           <ul>
             {
-              types?.map((type) => <li onClick={ () => setPizzaType(type) } className={ type === pizzaType ? "active" : "" } key={ type }> { pizzaIndex[type] } </li>)
+              types?.map((type, i) => <li onClick={ () => setPizzaType(i) } className={ i === pizzaType ? "active" : "" } key={ type }> { pizzaIndex[type] } </li>)
             }
           </ul>
           <ul>

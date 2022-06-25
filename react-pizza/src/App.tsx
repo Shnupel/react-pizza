@@ -13,7 +13,6 @@ function App() {
           <div className="container">
             <Routes>
               <Route index element={ <HomePage /> } />
-              <Route path="/:categoryId/:sortProperty" element={ <HomePage /> } />
               <Route path="/pizza/:pizzaid" element={ <FullPizza /> } />
               <Route path="/cart" element={ <BasketPage /> } />
               <Route path="*" element={ <NotFoundPage /> } />

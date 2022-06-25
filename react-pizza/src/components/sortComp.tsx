@@ -41,7 +41,7 @@ const SortComponent: React.FC = () => {
 
   const howMounted = useRef(0);
   useEffect(() => {
-    if(value){
+    if(howMounted.current > 1){
       dispatch(setSort(getSortFromLS()));
     }
     howMounted.current += 1;

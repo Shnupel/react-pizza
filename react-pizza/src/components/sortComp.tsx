@@ -39,8 +39,6 @@ const SortComponent: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => console.log(value));
-
   const howMounted = useRef(0);
   useEffect(() => {
     if(value){
